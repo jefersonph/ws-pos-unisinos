@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	</head>
+	<body>	
+		<strong>usuario</strong><br>
+		Nome: <input type="text" id="name"><br>
+		email: <input type="text" id="email"><br>
+		gamertag: <input type="text" id="gamertag"><br>
+		xbox_id: <input type="text" id="xbox_id"><br>
+		<button id="user_send" type="button">Enviar</button>
+		<br>
+		<br>
+		<strong>Emprestar</strong><br>
+		game_id: <input type="text" id="emp_game_id" id= ><br>
+		to:  <input type="text" id="emp_to_id"><br>
+		user_id:  <input type="text" id="emp_user_id"><br>
+		<button id="emp_send" type="button">Enviar</button>
+		
+		<br>
+		<br>
+
+		<strong>deleter</strong><br>
+		user_id: <input type="text" id="emp_user_id2" id= ><br>
+		loan_id:  <input type="text" id="emp_loan_id"><br>
+		<button id="emp_send2" type="button">Enviar</button>
+
+
+		<br>
+		<br>
+		<textarea rows="10" cols="100" id="result"></textarea>
+		
+	</body>		
+	
+	<script>
+	$( "#user_send" ).bind( "click", function() {
+	  	$.ajax({
+		  type: "POST",
+		  url: "/users.json",
+		  data: "user[name]="+$('#name').val()+"&user[email]="+$('#email').val()+"&user[xbox_id]="+$('#xbox_id').val()+"&user[gamertag]="+$('#gamertag').val()+"",
+		  success: function(data){
+			$('#result').html(JSON.stringify(data));
+			console.log(data);
+		  }
+		});
+	});
+	
+	$( "#emp_send" ).bind( "click", function() {
+	  	$.ajax({
+		  type: "POST",
+		  url: "/users/"+$('#emp_user_id').val()+"/lends.json",
+		  data: "lend[game_id]="+$('#emp_game_id').val()+"&lend[to]="+$('#emp_to_id').val()+"",
+		  success: function(data){
+			console.log(data);
+		  }
+		});
+	});
+	
+	$( "#emp_send2" ).bind( "click", function() {
+	  	$.ajax({
+		  type: "POST",
+		  url: "/users/"+$('#emp_user_id2').val()+"/lends/"+$('#emp_loan_id').val()+"/delete.json",
+		  data: "",
+		  success: function(data){
+			console.log(data);
+		  }
+		});
+	});
+	</script>
+</html>	
