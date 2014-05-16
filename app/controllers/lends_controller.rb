@@ -1,6 +1,6 @@
 class LendsController < ApplicationController
 
-  skip_before_filter :verify_authenticity_token, :except => [:update, :destroy]
+  skip_before_filter :verify_authenticity_token, :except => [:update, :destroy, :delete]
   
   # GET /lends
   # GET /lends.json
